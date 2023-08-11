@@ -11,15 +11,15 @@ class Publication extends Model
     use HasFactory;
 
     protected $fillable = [
-        'author_id', 'rubric_ic', 'article_id'
+        'user_id', 'rubric_ic', 'article_id'
     ];
 
     /**
      * @return BelongsTo
      */
-    public function author(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Author::class);
+        return $this->belongsTo(User::class);
     }
 
     /**

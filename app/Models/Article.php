@@ -18,9 +18,9 @@ class Article extends Model
     /**
      * @return BelongsToMany
      */
-    function authors(): BelongsToMany
+    function users(): BelongsToMany
     {
-        return $this->belongsToMany(Author::class, Publication::class);
+        return $this->belongsToMany(User::class, Publication::class);
     }
 
     /**

@@ -19,8 +19,7 @@ class UserSeeder extends Seeder
                 'created_at' => now()->addDays($sequence->index),
                 ]))
             ->afterCreating(fn (User $user) =>
-                $user->assignRole(fake()->randomElement($roles))
-                )
+                $user->assignRole(fake()->randomElement($roles)))
             ->create();
     }
 }

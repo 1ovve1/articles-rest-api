@@ -17,18 +17,38 @@ class RoleAndPermissionSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
+        Permission::create(['name' => 'view all users']);
+        Permission::create(['name' => 'view users']);
+        Permission::create(['name' => 'create users']);
+        Permission::create(['name' => 'edit users']);
+        Permission::create(['name' => 'delete users']);
+        Permission::create(['name' => 'disable users']);
+
+        Permission::create(['name' => 'view all articles']);
+        Permission::create(['name' => 'view articles']);
         Permission::create(['name' => 'create articles']);
         Permission::create(['name' => 'edit articles']);
         Permission::create(['name' => 'delete articles']);
-        Permission::create(['name' => 'publish articles']);
-        Permission::create(['name' => 'hide articles']);
+        Permission::create(['name' => 'manage articles']);
 
         // this can be done as separate statements
         $role = Role::create(['name' => 'writer']);
-        $role->givePermissionTo(['create articles', 'edit articles']);
+        $role->givePermissionTo([
+            'view users',
+            'view articles',
+            'create articles',
+            'edit articles']);
 
         $role = Role::create(['name' => 'moderator']);
-        $role->givePermissionTo(['create articles', 'edit articles', 'hide articles', 'publish articles']);
+        $role->givePermissionTo([
+            'view all users',
+            'view users',
+            'disable users',
+            'view all articles',
+            'view articles',
+            'create articles',
+            'edit articles',
+            'manage articles']);
 
         $role = Role::create(['name' => 'admin']);
         $role->givePermissionTo(Permission::all());
