@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Article;
-use App\Models\Author;
 use App\Models\Rubric;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Collection;
 
@@ -20,12 +20,10 @@ class PublicationFactory extends Factory
      */
     public function definition(): array
     {
-        $authorIds = $this->getIdsFromCollection(Author::all());
         $rubricIds = $this->getIdsFromCollection(Rubric::all());
         $articleIds = $this->getIdsFromCollection(Article::all());
 
         return [
-            'author_id' => fake()->randomElement($authorIds),
             'rubric_id' => fake()->randomElement($rubricIds),
             'article_id' => fake()->randomElement($articleIds)
         ];

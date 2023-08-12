@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -17,10 +18,12 @@ class ArticleFactory extends Factory
      */
     public function definition(): array
     {
-        $title = fake()->sentence(2);
+        $title = fake()->unique()->sentence(2);
+        $users = User::all()->pluck('id')->toArray();
 
         return [
             'slug' => Str::slug($title),
+            'user_id' => fake()->randomElement($users),
             'title' => $title,
             'content' => fake()->text(),
             'image_path' => fake()->filePath(),

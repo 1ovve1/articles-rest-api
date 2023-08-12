@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('publications', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('author_id')->constrained();
             $table->foreignId('rubric_id')->constrained();
             $table->foreignId('article_id')->constrained();
 

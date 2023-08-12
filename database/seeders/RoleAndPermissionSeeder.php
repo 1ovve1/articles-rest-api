@@ -17,18 +17,45 @@ class RoleAndPermissionSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
+        Permission::create(['name' => 'create users']);
+        Permission::create(['name' => 'edit users']);
+        Permission::create(['name' => 'delete users']);
+        Permission::create(['name' => 'disable users']);
+
+        Permission::create(['name' => 'create rubrics']);
+        Permission::create(['name' => 'edit rubrics']);
+        Permission::create(['name' => 'delete rubrics']);
+        Permission::create(['name' => 'disable rubrics']);
+
         Permission::create(['name' => 'create articles']);
         Permission::create(['name' => 'edit articles']);
         Permission::create(['name' => 'delete articles']);
-        Permission::create(['name' => 'publish articles']);
-        Permission::create(['name' => 'hide articles']);
+        Permission::create(['name' => 'disable articles']);
+
+        Permission::create(['name' => 'create publications']);
+        Permission::create(['name' => 'delete publications']);
+        Permission::create(['name' => 'disable publications']);
 
         // this can be done as separate statements
         $role = Role::create(['name' => 'writer']);
-        $role->givePermissionTo(['create articles', 'edit articles']);
+        $role->givePermissionTo([
+            'create articles',
+            'edit articles'
+        ]);
 
         $role = Role::create(['name' => 'moderator']);
-        $role->givePermissionTo(['create articles', 'edit articles', 'hide articles', 'publish articles']);
+        $role->givePermissionTo([
+            'disable users',
+            'edit rubrics',
+            'delete rubrics',
+            'disable rubrics',
+            'create articles',
+            'edit articles',
+            'disable articles',
+            'create publications',
+            'delete publications',
+            'disable publications',
+        ]);
 
         $role = Role::create(['name' => 'admin']);
         $role->givePermissionTo(Permission::all());
