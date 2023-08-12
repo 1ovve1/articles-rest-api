@@ -8,10 +8,9 @@ use App\Http\Controllers\Api\V1\RubricController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'auth'], function () {
-    Route::get('/',  [AuthController::class, 'index'])
-        ->middleware('auth:sanctum');
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/register', [AuthController::class, 'register']);
+    Route::get('/',  [AuthController::class, 'index'])->name('user');
+    Route::post('/login', [AuthController::class, 'login'])->name('user.login');
+    Route::post('/register', [AuthController::class, 'register'])->name('user.register');
 });
 
 Route::apiResources([
