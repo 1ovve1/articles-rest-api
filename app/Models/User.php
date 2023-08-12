@@ -97,4 +97,12 @@ class User extends Authenticatable
     {
         return $this->id === $model->id;
     }
+
+    public function deleteWithPublications(): void
+    {
+        Publication::where('user_id', $this->id)
+            ->delete();
+
+        $this->delete();
+    }
 }

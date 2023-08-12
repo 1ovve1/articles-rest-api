@@ -2,9 +2,7 @@
 
 namespace Tests\Feature\Api\V1;
 
-use App\Http\Resources\AuthUserResource;
 use App\Models\User;
-use Illuminate\Testing\Fluent\AssertableJson;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
@@ -39,12 +37,12 @@ class AuthControllerTest extends TestCase
             'password' => $password
         ];
 
-        $response = $this->post('/api/v1/auth/login', $payload);
+        $response = $this->post(route('user.login'), $payload);
 
         $response->assertStatus(Response::HTTP_ACCEPTED)
             ->assertJsonStructure(self::JSON_STRUCTURE);
 
-        User::destroy($user->id);
+        $user->delete();
     }
 
     /**
@@ -60,12 +58,12 @@ class AuthControllerTest extends TestCase
             'password' => $password
         ];
 
-        $response = $this->post('/api/v1/auth/login', $payload);
+        $response = $this->post(route('user.login'), $payload);
 
         $response->assertStatus(Response::HTTP_ACCEPTED)
             ->assertJsonStructure(self::JSON_STRUCTURE);
 
-        User::destroy($user->id);
+        $user->delete();
     }
 
     public function testRegistration(): void
@@ -82,7 +80,7 @@ class AuthControllerTest extends TestCase
             'password_confirmation' => $password,
         ];
 
-        $response = $this->post('/api/v1/auth/register', $payload);
+        $response = $this->post(route('user.register'), $payload);
 
         $response->assertStatus(Response::HTTP_CREATED)
             ->assertJsonStructure(self::JSON_STRUCTURE);
@@ -92,10 +90,12 @@ class AuthControllerTest extends TestCase
 
     public function testIndex(): void
     {
-        $user = User::first();
+        $user = User::factory()->create();
 
-        $this->actingAs($user)->get('/api/v1/auth/')
+        $this->actingAs($user)->get(route('user'))
             ->assertStatus(Response::HTTP_ACCEPTED)
             ->assertJsonStructure(self::JSON_STRUCTURE);
+
+        $user->delete();
     }
 }

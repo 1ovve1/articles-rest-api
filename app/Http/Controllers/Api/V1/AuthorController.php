@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Authors\StoreAuthorRequest;
 use App\Http\Requests\Authors\UpdateAuthorRequest;
 use App\Http\Resources\AuthorResource;
+use App\Models\Publication;
 use App\Models\User;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -72,7 +73,7 @@ class AuthorController extends Controller
      */
     public function destroy(User $author): Response
     {
-        $author->delete();
+        $author->deleteWithPublications();
 
         return response()->json([], Response::HTTP_NO_CONTENT);
     }
