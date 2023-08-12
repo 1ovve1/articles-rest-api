@@ -17,7 +17,7 @@ class ArticleFactory extends Factory
      */
     public function definition(): array
     {
-        $title = fake()->sentence(2);
+        $title = fake()->unique()->sentence(2);
 
         return [
             'slug' => Str::slug($title),

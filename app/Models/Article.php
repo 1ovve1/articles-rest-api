@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -36,8 +37,25 @@ class Article extends Model
      *
      * @return string
      */
-    function getRouteKey(): string
+    function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    /**
+     * @return Builder
+     */
+    static function onlyActive(): Builder
+    {
+        return Article::where('active', true);
+    }
+
+    /**
+     * @return void
+     */
+    function destroyWithPublication(): void
+    {
+        Publication::where('article_id', $this->id)->delete();
+        $this->delete();
     }
 }
