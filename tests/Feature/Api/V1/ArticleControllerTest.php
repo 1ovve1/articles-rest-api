@@ -12,6 +12,7 @@ class ArticleControllerTest extends TestCase
     const JSON_ARTICLE_STRUCTURE = [
         'data' => [
             'id',
+            'user_id',
             'slug',
             'title',
             'text',
@@ -25,6 +26,7 @@ class ArticleControllerTest extends TestCase
         'data' => [
             '*' => [
                 'id',
+                'user_id',
                 'slug',
                 'title',
                 'text',

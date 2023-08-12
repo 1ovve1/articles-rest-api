@@ -22,7 +22,7 @@ class ArticlePolicy
     {
         if ($user) {
             return $article->active
-                || $user->articles()->has($article)
+                || $user->hasOwnArticle($article)
                 || $user->hasAnyRole('admin', 'moderator');
         } else {
             return $article->active;
@@ -42,7 +42,7 @@ class ArticlePolicy
      */
     public function update(User $user, Article $article): bool
     {
-        return $user->hasPermissionTo('edit articles') || $user->articles()->find($article)->isNotEmpty();
+        return $user->hasPermissionTo('edit articles') || $user->hasOwnArticle($article);
     }
 
     /**
@@ -50,7 +50,7 @@ class ArticlePolicy
      */
     public function delete(User $user, Article $article): bool
     {
-        return $user->hasPermissionTo('delete articles') || $user->articles()->find($article)->isNotEmpty();
+        return $user->hasPermissionTo('delete articles') || $user->hasOwnArticle($article);
     }
 
     /**

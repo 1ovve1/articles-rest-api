@@ -96,11 +96,15 @@ class AuthorControllerTest extends TestCase
             ->assertJsonStructure(self::ALL_USERS_STRUCTURE);
     }
 
-    public function testViewArticle(): void
+    public function testViewAuthor(): void
     {
-        $this->getJson(route('authors.show', ['author' => 1]))
+        $author = User::factory()->create(['active' => true]);
+
+        $this->getJson(route('authors.show', ['author' => $author->id]))
             ->assertStatus(Response::HTTP_OK)
             ->assertJsonStructure(self::USER_STRUCTURE);
+
+        $author->delete();
     }
 
     public function testAuthorCreationAdmin(): void

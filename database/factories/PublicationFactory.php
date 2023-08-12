@@ -20,12 +20,10 @@ class PublicationFactory extends Factory
      */
     public function definition(): array
     {
-        $authorIds = $this->getIdsFromCollection(User::all());
         $rubricIds = $this->getIdsFromCollection(Rubric::all());
         $articleIds = $this->getIdsFromCollection(Article::all());
 
         return [
-            'user_id' => fake()->randomElement($authorIds),
             'rubric_id' => fake()->randomElement($rubricIds),
             'article_id' => fake()->randomElement($articleIds)
         ];

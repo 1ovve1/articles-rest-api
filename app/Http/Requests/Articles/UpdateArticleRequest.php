@@ -22,6 +22,7 @@ class UpdateArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'user_id' => ['required', 'integer', 'exists:users,id'],
             'slug' => ['alpha_dash', 'unique:articles,slug', 'max:255'],
             'title' => ['string', 'max:255'],
             'content' => ['string', 'max:10000'],

@@ -73,7 +73,7 @@ class AuthorController extends Controller
      */
     public function destroy(User $author): Response
     {
-        $author->deleteWithPublications();
+        $author->delete();
 
         return response()->json([], Response::HTTP_NO_CONTENT);
     }

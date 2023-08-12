@@ -22,6 +22,7 @@ class StoreArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'user_id' => ['required', 'integer', 'exists:users,id'],
             'slug' => ['required', 'alpha_dash', 'unique:articles,slug', 'max:255'],
             'title' => ['required', 'string', 'max:255'],
             'content' => ['required', 'string', 'max:10000'],
