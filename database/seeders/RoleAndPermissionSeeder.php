@@ -32,6 +32,10 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'delete articles']);
         Permission::create(['name' => 'disable articles']);
 
+        Permission::create(['name' => 'create publications']);
+        Permission::create(['name' => 'delete publications']);
+        Permission::create(['name' => 'disable publications']);
+
         // this can be done as separate statements
         $role = Role::create(['name' => 'writer']);
         $role->givePermissionTo([
@@ -47,7 +51,10 @@ class RoleAndPermissionSeeder extends Seeder
             'disable rubrics',
             'create articles',
             'edit articles',
-            'disable articles'
+            'disable articles',
+            'create publications',
+            'delete publications',
+            'disable publications',
         ]);
 
         $role = Role::create(['name' => 'admin']);

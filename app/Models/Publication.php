@@ -11,16 +11,8 @@ class Publication extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'rubric_ic', 'article_id'
+        'rubric_id', 'article_id'
     ];
-
-    /**
-     * @return BelongsTo
-     */
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
 
     /**
      * @return BelongsTo

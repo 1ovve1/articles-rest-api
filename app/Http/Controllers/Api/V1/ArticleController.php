@@ -7,6 +7,7 @@ use App\Http\Requests\Articles\StoreArticleRequest;
 use App\Http\Requests\Articles\UpdateArticleRequest;
 use App\Http\Resources\ArticleResource;
 use App\Models\Article;
+use App\Models\Publication;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;

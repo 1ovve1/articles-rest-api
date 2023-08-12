@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\V1\ArticleController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\AuthorArticles;
 use App\Http\Controllers\Api\V1\AuthorController;
+use App\Http\Controllers\Api\V1\PublicationController;
 use App\Http\Controllers\Api\V1\RubricController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +22,6 @@ Route::apiResources([
 
 Route::apiResource('authors.articles', AuthorArticles::class)
     ->only('index');
+
+Route::apiResource('publications', PublicationController::class)
+    ->except('update');
