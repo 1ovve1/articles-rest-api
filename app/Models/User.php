@@ -88,4 +88,13 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(Rubric::class,Publication::class, 'rubric_id', 'id');
     }
+
+    /**
+     * @param User $model
+     * @return bool
+     */
+    public function same(User $model): bool
+    {
+        return $this->id === $model->id;
+    }
 }
