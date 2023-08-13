@@ -66,6 +66,27 @@ class AuthControllerTest extends TestCase
         $user->delete();
     }
 
+    /**
+     * A basic feature test example.
+     */
+    public function testEmailLoginLogin(): void
+    {
+        $password = fake()->password(8);
+        $user = User::factory()->create(['password' => $password]);
+
+        $payload = [
+            'email_login' => $user->login,
+            'password' => $password
+        ];
+
+        $response = $this->post(route('user.login'), $payload);
+
+        $response->assertStatus(Response::HTTP_ACCEPTED)
+            ->assertJsonStructure(self::JSON_STRUCTURE);
+
+        $user->delete();
+    }
+
     public function testRegistration(): void
     {
         $password = fake()->password(8);

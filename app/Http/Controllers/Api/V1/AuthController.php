@@ -51,11 +51,13 @@ class AuthController extends Controller
     {
         $payload = $loginUserRequest->validated();
 
-        Auth::attempt($payload);
+        if (Auth::attempt($payload)) {
+            $user = Auth::user();
 
-        $user = Auth::user();
+            return (new AuthUserResource($user))
+                ->response()->setStatusCode(Response::HTTP_ACCEPTED);
+        }
 
-        return (new AuthUserResource($user))
-            ->response()->setStatusCode(Response::HTTP_ACCEPTED);
+        return response()->json(['errors' => 'Cannot login with these params'], Response::HTTP_UNAUTHORIZED);
     }
 }

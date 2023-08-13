@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\User;
+use Barryvdh\Debugbar\Facades\Debugbar;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
@@ -37,16 +38,25 @@ class LoginUserRequest extends FormRequest
      */
     protected function prepareForValidation()
     {
-        if (isset($this->login)) {
-            $user = User::where('login', $this->login)->get()->pluck('login')->toArray();
+        if (isset($this->login_email) || isset($this->email_login)) {
+            $index = ($this->login_email) ?? ($this->email_login);
+
+            $userLogin = User::where('login', $index)
+                ->orWhere('email', $index)->get()
+                ->pluck('login')->toArray();
+
+        } elseif (isset($this->login)) {
+            $userLogin = User::where('login', $this->login)
+                ->get()->pluck('login')->toArray();
         } elseif (isset($this->email)) {
-            $user = User::where('email', $this->email)->get()->pluck('email')->toArray();
+            $userLogin = User::where('email', $this->email)
+                ->get()->pluck('login')->toArray();
         } else {
-            $user = [];
+            $userLogin = [];
         }
 
+        $userLogin = ['login' => $userLogin[0] ?? ''];
 
-
-        $this->merge($user);
+        $this->merge($userLogin);
     }
 }
