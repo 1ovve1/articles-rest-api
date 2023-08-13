@@ -8,6 +8,7 @@ use App\Http\Requests\Authors\UpdateAuthorRequest;
 use App\Http\Resources\AuthorResource;
 use App\Models\Publication;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthorController extends Controller
@@ -15,7 +16,7 @@ class AuthorController extends Controller
     public function __construct()
     {
         $this->middleware(['auth:sanctum'])
-            ->only(['store', 'update', 'destroy']);
+            ->only(['store', 'update', 'destroy', 'show']);
         $this->authorizeResource(User::class, 'author');
     }
 

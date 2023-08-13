@@ -3,6 +3,8 @@
 namespace App\Policies;
 
 use App\Models\User;
+use Barryvdh\Debugbar\Facades\Debugbar;
+use Illuminate\Support\Facades\Auth;
 
 class UserPolicy
 {
@@ -19,6 +21,10 @@ class UserPolicy
      */
     public function view(?User $user, User $model): bool
     {
+        if (isset($user)) {
+            return $user->hasPermissionTo('disable users');
+        }
+
         return $model->active;
     }
 
